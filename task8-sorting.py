@@ -25,40 +25,36 @@ def bubble_sort(lst):
 
 
 def merge_sort(lst):
-    if len(lst) > 1:
-        # Divide the list into two halves
-        half = len(lst)//2
-        left = lst[:half]
-        right = lst[half:]
-
-        # Recursively sort the two halves
-        merge_sort(left)
-        merge_sort(right)
-
-        i = j = k = 0
-        
-        # Iterate over both lists and append the smaller element to the merged list
-        # Until we reach either end of either left or right
-        while i < len(left) and j < len(right):
-            if left[i] < right[j]:
-                lst[k] = left[i]
-                i = i + 1
-            else:
-                lst[k] = right[j]
-                j =j + 1
-            k = k + 1
-
-        # When we run out of elements in either left or right,
-        # pick up the remaining elements
-        while i < len(left):
-            lst[k] = left[i]
-            i = i + 1
-            k = k + 1
-
-        while j < len(right):
-            lst[k] = right[j]
-            j = j + 1
-            k = k + 1
+    # Base case: if the list is of length 1, it is already sorted
+    if len(lst) == 1:
+        return lst
+    
+    # Split the list into two halves
+    mid = len(lst) // 2
+    left = lst[:mid]
+    right = lst[mid:]
+    
+    # Recursively sort both halves
+    left_sorted = merge_sort(left)
+    right_sorted = merge_sort(right)
+    
+    # Merge the sorted halves
+    merged = []
+    i = 0
+    j = 0
+    while i < len(left_sorted) and j < len(right_sorted):
+        if left_sorted[i] < right_sorted[j]:
+            merged.append(left_sorted[i])
+            i += 1
+        else:
+            merged.append(right_sorted[j])
+            j += 1
+            
+    # Add any remaining elements from the left or right halves
+    merged.extend(left_sorted[i:])
+    merged.extend(right_sorted[j:])
+    
+    return merged
 
 
 def evaluate_sorting_algorithm(algorithm, lst):

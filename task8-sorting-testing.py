@@ -2,16 +2,58 @@ import random
 import time
 
 def selection_sort(data):
-    # Implementation for selection sorting algorithm goes here #
+    # # Iterate over the entire list
+    # for i in range(len(lst) - 1):
+    #     # Find the index of the minimum element
+    #     min_index = i
+    #     for j in range(i + 1, len(lst)):
+    #         if lst[j] < lst[min_index]:
+    #             min_index = j
+        
+    #     # Swap the minimum element with the first element
+    #     lst[i], lst[min_index] = lst[min_index], lst[i]
      pass
 
 def bubble_sort(lst):
-    # Implementation for bubble sorting algorithm goes here #
+    # # Iterate over the entire list
+    # for i in range(len(lst) - 1):
+    #     # Iterate over the list up to the i-th element
+    #     for j in range(len(lst) - 1 - i):
+    #         # Swap adjacent elements if they are out of order
+    #         if lst[j] > lst[j + 1]:
+    #             lst[j], lst[j + 1] = lst[j + 1], lst[j]
      pass
 
 def merge_sort(lst):
-    # Implementation for merge sorting algorithm goes here #
-     pass
+    # Base case: if the list is of length 1, it is already sorted
+    if len(lst) == 1:
+        return lst
+    
+    # Split the list into two halves
+    mid = len(lst) // 2
+    left_half = lst[:mid]
+    right_half = lst[mid:]
+    
+    # Recursively sort both halves
+    left_half_sorted = merge_sort(left_half)
+    right_half_sorted = merge_sort(right_half)
+    
+    # Merge the sorted halves
+    merged = []
+    left_index = 0
+    right_index = 0
+    while left_index < len(left_half_sorted) and right_index < len(right_half_sorted):
+        if left_half_sorted[left_index] < right_half_sorted[right_index]:
+            merged.append(left_half_sorted[left_index])
+            left_index += 1
+        else:
+            merged.append(right_half_sorted[right_index])
+            right_index += 1
+    # Add any remaining elements from the left or right halves
+    merged.extend(left_half_sorted[left_index:])
+    merged.extend(right_half_sorted[right_index:])
+    
+    return merged
      
 def evaluate_sorting_algorithm(algorithm, lst):
     # Make a copy of the list so we don't modify the original
@@ -46,7 +88,7 @@ def compare_sorting_algorithms(algorithms, categories):
             
             # Run the algorithm 100 times to get a good estimate of its performance
             times = []
-            for i in range(1):
+            for i in range(10):
                 t = evaluate_sorting_algorithm(algorithm, lst)
                 times.append(t)
                 
